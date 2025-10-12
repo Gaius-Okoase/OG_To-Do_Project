@@ -1,0 +1,29 @@
+{
+  "name": "og_to-do_app",
+  "version": "1.0.0",
+  "description": "This project merges the CRUD logic of a To-Do app with the security and structure of a real authentication system.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaius-Okoase/OG_To-Do_Project.git"
+  },
+  "author": "Gaius Okoase Oreoluwa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gaius-Okoase/OG_To-Do_Project/issues"
+  },
+  "homepage": "https://github.com/Gaius-Okoase/OG_To-Do_Project#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
