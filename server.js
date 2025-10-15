@@ -2,12 +2,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import morgan from 'morgan';
 import connectToDb from './config/db.js';
 
+// Load environment variables
 dotenv.config();
+// Connect to Database
 connectToDb();
-
-const app = express(); // Istantiate express class
+// Initialize express app
+const app = express(); 
 const PORT = process.env.PORT;
 
 // Application Middlewares
@@ -15,14 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
 // Middleware to log request to console
-app.use((req, res, next) => {
-    console.log(`Received request with ${req.method} for ${req.url}
-        Header: ${req.headers}
-        Body; ${req.body}`);
-    next();
-});
+app.use(morgan('dev'));
 
 // Listen on port
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
 });
