@@ -1,4 +1,4 @@
-# 🧩 OG To-Do App
+# **OG To-Do App**
 
 A secure and production-ready fullstack web application that allows users to **register, log in, and manage personal to-do tasks** with full CRUD functionality.  
 Built with **Node.js, Express, MongoDB**, this project merges real-world authentication with a practical task management interface.
