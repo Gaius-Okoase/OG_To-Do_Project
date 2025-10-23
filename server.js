@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import connectToDb from './config/db.js';
+import { User } from './models/User.js';
 
 // Load environment variables
 dotenv.config();
@@ -11,7 +12,7 @@ dotenv.config();
 connectToDb();
 // Initialize express app
 const app = express(); 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4500;
 
 // Application Middlewares
 app.use(express.json());
