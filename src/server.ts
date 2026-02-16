@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import connectToDb from './config/db.js';
-// import { User } from './models/User.js';
+import authRoute from './routes/authRoute.js'
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +20,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 // Middleware to log request to console
 app.use(morgan('dev'));
+// Routers Middlewares
+app.use('/api/auth', authRoute)
 
 // Listen on port
 /* const server =*/ app.listen(PORT, () => {
