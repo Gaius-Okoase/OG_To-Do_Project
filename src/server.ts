@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import connectToDb from './config/db.js';
-import { User } from './models/User.js';
+// import { User } from './models/User.js';
 
 // Load environment variables
 dotenv.config();
