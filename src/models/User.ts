@@ -1,8 +1,21 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
+// Document Typed Interface
+interface IUser {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    isVerified: boolean,
+    refreshToken?: string
+}
+interface IUserMethods {
+    comparePassword: (password: string) => Promise<boolean>
+}
+
 // Define User Schema
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser, mongoose.Model<IUser>, IUserMethods>({
     firstName: {
         type: String,
         required: [true, 'Please fill in your first name'],

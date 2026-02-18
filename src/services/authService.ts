@@ -32,3 +32,37 @@ export const registerUser = async (userData: any) => {
         refreshToken
     }
 }
+
+// Login fucntion
+export const loginUser = async (userData: any) => {
+    const { email, password } = userData;
+    
+    // Check if user with email exists
+    const user = await User.findOne({email: email}).select('+password')
+    if (!user) {
+        console.log("Email does not exist")
+        throw new Error ("Invalid Email or Password")
+    }
+    // Compare passwords
+    const isMatch = await user.comparePassword(password)
+    if (!isMatch) {
+        console.log(`Incorrect password`);
+        throw new Error ("Invalid Email or Password")
+    }
+    // Tokens
+    const accessToken = generateAccessToken(user._id.toString());
+    const refreshToken = generateRefreshToken(user._id.toString());
+    // Save refresh token to DB
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    return {
+        user: {
+            id: user._id,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email
+        },
+        accessToken,
+        refreshToken
+    }
+}
