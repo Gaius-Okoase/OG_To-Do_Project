@@ -8,7 +8,7 @@ const connectToDb = async () => {
         if (!mongoUri) {
          throw new Error('MONGO_URI environment variable is not set');
         }
-// Now mongoUri is guaranteed to be a string
+        
         await mongoose.connect(mongoUri);
         console.log('Successfully connected to MongoDB.');
         return mongoose.connection;
