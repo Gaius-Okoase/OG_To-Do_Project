@@ -31,7 +31,8 @@ const userSchema = new mongoose.Schema<IUser, mongoose.Model<IUser>, IUserMethod
         required: [true, 'Please fill in your email'],
         unique: true,
         lowercase: true,
-        match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
+        match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
+        trim: true
     },
     password: {
         type: String,

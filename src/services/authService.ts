@@ -36,9 +36,9 @@ export const registerUser = async (userData: any) => {
 // Login fucntion
 export const loginUser = async (userData: any) => {
     const { email, password } = userData;
-    
+    const trimmedEmail = email.trim();
     // Check if user with email exists
-    const user = await User.findOne({email: email}).select('+password')
+    const user = await User.findOne({email: trimmedEmail}).select('+password')
     if (!user) {
         console.log("Email does not exist")
         throw new Error ("Invalid Email or Password")
