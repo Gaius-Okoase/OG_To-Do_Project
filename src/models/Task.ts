@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 type PriorityType = "low" | "medium" | "high"
-interface ITask {
+interface ITodo {
     userId: mongoose.Types.ObjectId,
     title: string,
     description: string,
@@ -9,7 +9,7 @@ interface ITask {
     isCompleted: boolean
 }
 
-const taskSchema = new mongoose.Schema<ITask, mongoose.Model<ITask>>({
+const todoSchema = new mongoose.Schema<ITodo, mongoose.Model<ITodo>>({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -43,4 +43,4 @@ const taskSchema = new mongoose.Schema<ITask, mongoose.Model<ITask>>({
     timestamps: true
 });
 
-export const Task = mongoose.model('Task', taskSchema);
+export const Todo = mongoose.model('Todo', todoSchema);
