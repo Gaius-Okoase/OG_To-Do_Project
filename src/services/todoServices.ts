@@ -1,4 +1,4 @@
-import { Todo } from "../models/Task.js";
+import { Todo } from "../models/Todo.js";
 
 // Create Todo funtion
 export const createTodo = async (userId: string, todoData: any) => {
