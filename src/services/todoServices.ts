@@ -1,4 +1,5 @@
 import { Todo } from "../models/Todo.js";
+import { AppError } from "../utils/AppError.js";
 
 // Create Todo funtion
 export const createTodo = async (userId: string, todoData: any) => {
@@ -22,6 +23,10 @@ export const getSingleTodo = async (userId: string, todoId: string) => {
 
     const todo = await Todo.findOne({ _id: todoId, userId: userId });
 
+    if (!todo) {
+        throw new AppError(404, `Todo does not exist`)
+    }
+
     return { todo }
 
 }
@@ -43,6 +48,10 @@ export const updateTodo = async (userId: string, todoId: string, todoData: any) 
         {new: true, runValidators: true}
     )
 
+        if (!updatedTodo) {
+        throw new AppError(404, `Todo does not exist`)
+    }
+
     return {
         updatedTodo
     }
@@ -52,6 +61,10 @@ export const updateTodo = async (userId: string, todoId: string, todoData: any) 
 export const deleteSingleTodo = async (userId: string, todoId: string) => {
 
     const deletedTodo = await Todo.findOneAndDelete({_id: todoId, userId: userId});
+
+        if (!deletedTodo) {
+        throw new AppError(404, `Todo does not exist`)
+    }
 
     return { deletedTodo }
 }

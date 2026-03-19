@@ -8,6 +8,7 @@ import {
     deleteMultipleTodo,
     deleteAllTodo 
 } from '../services/todoServices.js'; 
+import { AppError } from '../utils/AppError.js';
 
 export const createTodoController = async (req: Request, res: Response) => {
     try {
@@ -23,10 +24,18 @@ export const createTodoController = async (req: Request, res: Response) => {
             data: todo
         })
     } catch (error) {
-        return res.status(400).json({
+        if (error instanceof AppError) {
+            return res.status(error.statusCode).json({
+                success: false,
+                error: error.message
+            })
+        } else {
+            console.log(error)
+            return res.status(500).json({
             success: false,
             error: error instanceof Error ? error.message: `Failed to create Todo.`
-        })
+            })
+        }
     }
 }
 
