@@ -77,7 +77,7 @@ export const deleteMultipleTodo = async (userId: string, todoIds: string[]) => {
         _id: {$in: todoIds}
     })
     
-    return { deletedTodos}
+    return { deletedTodos }
 }
 
 // Delete All Todo
