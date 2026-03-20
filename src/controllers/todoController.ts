@@ -39,7 +39,7 @@ export const createTodoController = async (req: Request, res: Response) => {
     }
 }
 
-export const updateTodoController= async (req: Request, res: Response) => {
+export const updateTodoController = async (req: Request, res: Response) => {
     try {
         const userId = req.userId;
 

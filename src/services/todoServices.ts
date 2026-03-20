@@ -48,13 +48,11 @@ export const updateTodo = async (userId: string, todoId: string, todoData: any) 
         {new: true, runValidators: true}
     )
 
-        if (!updatedTodo) {
+    if (!updatedTodo) {
         throw new AppError(404, `Todo does not exist`)
     }
 
-    return {
-        updatedTodo
-    }
+    return { updatedTodo }
 }
 
 // Delete Todo function

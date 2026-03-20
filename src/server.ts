@@ -5,6 +5,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import connectToDb from './config/db.js';
 import authRoute from './routes/authRoute.js'
+import todoRoute from './routes/taskRoute.js'
+import { authorization } from './middleware/auth.js';
 
 // Load environment variables
 dotenv.config();
@@ -21,7 +23,8 @@ app.use(cors());
 // Middleware to log request to console
 app.use(morgan('dev'));
 // Routers Middlewares
-app.use('/api/auth', authRoute)
+app.use('/api/auth', authRoute);
+app.use('/api/todo', authorization, todoRoute);
 
 // Listen on port
 /* const server =*/ app.listen(PORT, () => {
