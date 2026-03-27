@@ -28,6 +28,7 @@ const todoSchema = new mongoose.Schema<ITodo, mongoose.Model<ITodo>>({
     },
     priority:{
         type: String,
+        lowercase: true,
         enum: ["low", "medium", "high"],
         default: "medium",
         required: true

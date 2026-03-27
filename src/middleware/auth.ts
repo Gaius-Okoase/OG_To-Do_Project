@@ -26,7 +26,7 @@ export const authorization = async (req: Request, res: Response, next: NextFunct
         const decodedToken = jwt.verify(token, process.env.JWT_ACCESS_SECRET!) as DecodedToken
         // Verify user still exists
         const userId = decodedToken.userId;
-        const userExists = await User.findById({userId});
+        const userExists = await User.findById(userId);
         if (!userExists) {
             return res.status(410).json({error: "User account no longer exists"})
         }
