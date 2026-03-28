@@ -14,7 +14,7 @@ export const createTodoController = async (req: Request, res: Response) => {
     try {
         const userId = req.userId;
         
-        const todoData = req.body
+        const todoData = req.body;
 
         const todo = await createTodo(userId!, todoData)
 
