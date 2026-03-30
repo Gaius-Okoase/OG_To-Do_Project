@@ -9,14 +9,14 @@ import {
     deleteAllTodoController
 } from '../controllers/todoController.js';
 
-import { createTodoValidator } from '../middleware/task.validator.js';
+import { createTodoValidator, updateTodoValidator } from '../middleware/task.validator.js';
 
 const router = express.Router();
 
 router.post('/create', createTodoValidator, createTodoController);
 router.get('/get-one/:id', getSingleTodoController);
 router.get('/get-all', getAllTodoController);
-router.patch('/update/:id', updateTodoController);
+router.patch('/update/:id', updateTodoValidator, updateTodoController);
 router.delete('/delete-one/:id', deleteSingleTodoController);
 router.delete('/delete-many', deleteMultipleTodoController);
 router.delete('/delete-all', deleteAllTodoController)
