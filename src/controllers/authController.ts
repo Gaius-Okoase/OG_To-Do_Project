@@ -13,7 +13,7 @@ export const registerUserController = async (req: Request, res: Response) => {
             message: "User registered successfully",
             data: registrationResult
         })
-    } catch (error: any) {
+    } catch (error) {
         res.status(400).json({
             success: false,
             message: error instanceof Error ? error.message : 'Registration failed'

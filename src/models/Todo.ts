@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-type PriorityType = "low" | "medium" | "high"
+type PriorityType = "Low" | "Medium" | "High"
 interface ITodo {
     userId: mongoose.Types.ObjectId,
     title: string,
@@ -28,9 +28,8 @@ const todoSchema = new mongoose.Schema<ITodo, mongoose.Model<ITodo>>({
     },
     priority:{
         type: String,
-        lowercase: true,
-        enum: ["low", "medium", "high"],
-        default: "medium",
+        enum: ["Low", "Medium", "High"],
+        default: "Medium",
         required: true
     },
     deadline: {

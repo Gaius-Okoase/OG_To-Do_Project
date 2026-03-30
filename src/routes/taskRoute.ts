@@ -9,9 +9,11 @@ import {
     deleteAllTodoController
 } from '../controllers/todoController.js';
 
+import { createTodoValidator } from '../middleware/task.validator.js';
+
 const router = express.Router();
 
-router.post('/create', createTodoController);
+router.post('/create', createTodoValidator, createTodoController);
 router.get('/get-one/:id', getSingleTodoController);
 router.get('/get-all', getAllTodoController);
 router.patch('/update/:id', updateTodoController);

@@ -9,16 +9,20 @@ interface DecodedToken {
 export const authorization = async (req: Request, res: Response, next: NextFunction) => {
     // Verify header authorization properties
     const authHeader = req.headers.authorization;
+
     if (!authHeader) {
         console.log("Authorization object missing.")
         return res.status(401).json({error: "Invalid or missing token."})
-    }   
+    }
+
     if(!authHeader.startsWith("Bearer ")) {
         console.log("Malformed token.")
         return res.status(401).json({error: "Invalid or missing token."})
     }
+
     // Extract and verify token
     const token = authHeader.split(" ")[1]
+        
     if (!token) {
         return res.status(401).json({error: "Invalid or missing token."})
     }
