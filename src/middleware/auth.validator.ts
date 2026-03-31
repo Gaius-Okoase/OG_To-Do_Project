@@ -13,20 +13,26 @@ export const registerValidator = (req: Request, res: Response, next: NextFunctio
     const result = RegisterSchema.safeParse(userData);
 
     if (!result.success) {
-        return res.status(400).json({ error: result.error })
+        return res.status(400).json({ 
+            success: false,
+            error: result.error 
+        })
     }
 
     return next();
 }
 
-export const loginValidator = (req: Request, res: Response, next: NextFunction) => {
+export const loginValidator = (req: Request, res: Response,     next: NextFunction) => {
     type UserData = zod.infer<typeof LoginSchema>;
 
     const userData: UserData = req.body;
 
     const result = LoginSchema.safeParse(userData);
 
-    if (!result.success) return res.status(400).json({ error: result.error});
+    if (!result.success) return res.status(400).json({ 
+        success: false,
+        error: zod.prettifyError(result.error)
+    });
 
     return next();
 }

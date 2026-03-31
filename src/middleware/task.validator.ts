@@ -10,7 +10,10 @@ export const createTodoValidator = (req: Request, res: Response, next: NextFunct
     const result = CreateTodoSchema.safeParse(userData);
 
     if (!result.success) {
-        return res.status(400).json({ error: result.error })
+        return res.status(400).json({ 
+            success: false,
+            error: result.error 
+        })
     }
 
     return next()
@@ -23,7 +26,10 @@ export const updateTodoValidator = (req: Request, res: Response, next: NextFunct
 
     const result = UpdateTodoSchema.safeParse(userData);
 
-    if (!result.success) return res.status(400).json({error: result.error})
+    if (!result.success) return res.status(400).json({
+        success: false, 
+        error: result.error
+    })
     
     return next()
 }

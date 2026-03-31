@@ -7,6 +7,7 @@ import connectToDb from './config/db.js';
 import authRoute from './routes/authRoute.js'
 import todoRoute from './routes/taskRoute.js'
 import { authorization } from './middleware/auth.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 // Load environment variables
 dotenv.config();
@@ -25,6 +26,8 @@ app.use(morgan('dev'));
 // Routers Middlewares
 app.use('/api/auth', authRoute);
 app.use('/api/todo', authorization, todoRoute);
+// Error handler Middleware
+app.use(errorHandler);
 
 // Listen on port
 /* const server =*/ app.listen(PORT, () => {
