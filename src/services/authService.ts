@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/generateToken.js";
+import { AppError } from "../utils/AppError.js";
 
 // Register user function
 export const registerUser = async (userData: any) => {
@@ -41,13 +42,13 @@ export const loginUser = async (userData: any) => {
     const user = await User.findOne({email: trimmedEmail}).select('+password')
     if (!user) {
         console.log("Email does not exist")
-        throw new Error ("Invalid Email or Password")
+        throw new AppError (401, "Invalid Email or Password")
     }
     // Compare passwords
     const isMatch = await user.comparePassword(password)
     if (!isMatch) {
         console.log(`Incorrect password`);
-        throw new Error ("Invalid Email or Password")
+        throw new AppError (401, "Invalid Email or Password")
     }
     // Tokens
     const accessToken = generateAccessToken(user._id.toString());

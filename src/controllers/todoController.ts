@@ -1,4 +1,4 @@
-import type {Request, Response} from 'express';
+import type {Request, Response, NextFunction} from 'express';
 import { 
     createTodo, 
     updateTodo, 
@@ -8,9 +8,9 @@ import {
     deleteMultipleTodo,
     deleteAllTodo 
 } from '../services/todoServices.js'; 
-import { AppError } from '../utils/AppError.js';
 
-export const createTodoController = async (req: Request, res: Response) => {
+
+export const createTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
         
@@ -24,22 +24,11 @@ export const createTodoController = async (req: Request, res: Response) => {
             data: todo
         })
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            console.log(error)
-            return res.status(500).json({
-            success: false,
-            error: error instanceof Error ? error.message: `Failed to create Todo.`
-            })
-        }
+       return next(error);
     }
 }
 
-export const updateTodoController = async (req: Request, res: Response) => {
+export const updateTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
 
@@ -56,22 +45,11 @@ export const updateTodoController = async (req: Request, res: Response) => {
             })
 
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            console.log(error)
-            return res.status(500).json({
-            success: false,
-            error: error instanceof Error ? error.message: `Failed to update Todo.`
-            })
-        }
+       return next(error);
     }
 }
 
-export const getSingleTodoController = async (req:Request, res:Response) => {
+export const getSingleTodoController = async (req:Request, res:Response, next: NextFunction) => {
     try {
         const userId = req.userId;
         
@@ -85,22 +63,11 @@ export const getSingleTodoController = async (req:Request, res:Response) => {
             data: todo
         })
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            console.log(error)
-            return res.status(500).json({
-            success: false,
-            error: error instanceof Error ? error.message: `Failed to get Todo.`
-            })
-        }
+        return next(error);
     }
 }
 
-export const getAllTodoController = async (req: Request, res: Response) => {
+export const getAllTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
 
@@ -112,22 +79,11 @@ export const getAllTodoController = async (req: Request, res: Response) => {
             data: todos
         })
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            console.log(error)
-            return res.status(500).json({
-            success: false,
-            error: error instanceof Error ? error.message: `Failed to get all todos.`
-            })
-        }
+        return next(error);
     }
 }
 
-export const deleteSingleTodoController = async (req: Request, res: Response) => {
+export const deleteSingleTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
         
@@ -142,21 +98,11 @@ export const deleteSingleTodoController = async (req: Request, res: Response) =>
         })
 
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            return res.status(500).json({
-                success: false,
-                error: error instanceof Error? error.message : `Failed to delete todo.`
-            })
-        }
+        return next(error);
     }
 }
 
-export const deleteMultipleTodoController = async (req: Request, res: Response) => {
+export const deleteMultipleTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
 
@@ -171,21 +117,11 @@ export const deleteMultipleTodoController = async (req: Request, res: Response) 
         })
         
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            return res.status(500).json({
-                success: false,
-                error: error instanceof Error? error.message : `Failed to delete todo.`
-            })
-        }
+        return next(error);
     }
 }
 
-export const deleteAllTodoController = async (req: Request, res: Response) => {
+export const deleteAllTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
         
@@ -198,16 +134,6 @@ export const deleteAllTodoController = async (req: Request, res: Response) => {
         })
         
     } catch (error) {
-        if (error instanceof AppError) {
-            return res.status(error.statusCode).json({
-                success: false,
-                error: error.message
-            })
-        } else {
-            return res.status(500).json({
-                success: false,
-                error: error instanceof Error? error.message : `Failed to delete todo.`
-            })
-        }
+        return next(error);
     }
 }

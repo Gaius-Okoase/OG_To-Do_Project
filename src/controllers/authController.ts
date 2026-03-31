@@ -1,8 +1,8 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { registerUser, loginUser } from '../services/authService.js';
 
 // Register User
-export const registerUserController = async (req: Request, res: Response) => {
+export const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userData= req.body;
         
@@ -14,15 +14,12 @@ export const registerUserController = async (req: Request, res: Response) => {
             data: registrationResult
         })
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error ? error.message : 'Registration failed'
-        })
+        next(error)
     }
 }
 
 // Log in User
-export const loginUserController = async (req: Request, res: Response) => {
+export const loginUserController = async (req: Request, res: Response, next: NextFunction) => {
     const userData = req.body;
 
     try {
@@ -34,11 +31,6 @@ export const loginUserController = async (req: Request, res: Response) => {
             data: loginResult
         })
     } catch (error) {
-        console.error("Failed to log in user");
-        res.status(400).json({
-            success: false,
-            message: error instanceof Error? error.message: "Invalid Email or Password"
-        });
-    }
-    
+        next(error)
+    }    
 }
