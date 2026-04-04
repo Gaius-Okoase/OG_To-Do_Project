@@ -30,7 +30,7 @@ Built with **Node.js, Express, MongoDB**, this project merges real-world authent
 
 | Layer | Technologies |
 |-------|---------------|
-| **Backend** | Node.js, Express.js, MongoDB (Mongoose), bcryptjs, jsonwebtoken, dotenv, cors |
+| **Backend** | Node.js, Express.js, TypeScript, MongoDB (Mongoose), bcryptjs, jsonwebtoken, dotenv, cors |
 | **Frontend** | (Yet to be decided. Most likely React) |
 | **Deployment** | Render (backend), Netlify/Vercel (frontend) |
 | **Version Control** | Git & GitHub |
