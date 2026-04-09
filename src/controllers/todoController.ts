@@ -1,4 +1,6 @@
 import type {Request, Response, NextFunction} from 'express';
+import zod from "zod";
+import { CreateTodoSchema, UpdateTodoSchema } from '../schemas/taskSchema.js';
 import { 
     createTodo, 
     updateTodo, 
@@ -9,12 +11,14 @@ import {
     deleteAllTodo 
 } from '../services/todoServices.js'; 
 
+type CreateTodo = zod.infer<typeof CreateTodoSchema>;
+type UpdateTodo = zod.infer<typeof UpdateTodoSchema>;
 
 export const createTodoController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.userId;
         
-        const todoData = req.body;
+        const todoData: CreateTodo = req.body;
 
         const todo = await createTodo(userId!, todoData)
 
@@ -34,7 +38,7 @@ export const updateTodoController = async (req: Request, res: Response, next: Ne
 
         const todoId = req.params.id as string;
 
-        const todoData = req.body;
+        const todoData: UpdateTodo = req.body;
 
         const updatedTodo = await updateTodo(userId!, todoId, todoData)
 

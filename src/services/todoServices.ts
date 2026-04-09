@@ -1,8 +1,13 @@
 import { Todo } from "../models/Todo.js";
 import { AppError } from "../utils/AppError.js";
+import zod from "zod";
+import { CreateTodoSchema, UpdateTodoSchema } from "../schemas/taskSchema.js";
+
+type CreateTodo = zod.infer<typeof CreateTodoSchema>;
+type UpdateTodo = zod.infer<typeof UpdateTodoSchema>;
 
 // Create Todo funtion
-export const createTodo = async (userId: string, todoData: any) => {
+export const createTodo = async (userId: string, todoData: CreateTodo) => {
     const { title, description, priority, deadline  } = todoData;
 
     const todo = await Todo.create({
@@ -40,7 +45,7 @@ export const getAllTodo = async (userId: string) => {
 }
 
 // Update Todo function
-export const updateTodo = async (userId: string, todoId: string, todoData: any) => {
+export const updateTodo = async (userId: string, todoId: string, todoData: UpdateTodo) => {
 
     const updatedTodo = await Todo.findOneAndUpdate(
         { _id: todoId, userId},

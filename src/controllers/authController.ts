@@ -1,10 +1,16 @@
 import type { Request, Response, NextFunction } from 'express';
-import { registerUser, loginUser } from '../services/authService.js';
+import zod from "zod";
+import { registerUser, loginUser, refreshToken } from '../services/authService.js';
+import { RegisterSchema, LoginSchema } from '../schemas/authSchema.js';
+
+type RegisterUser = zod.infer<typeof RegisterSchema>
+type LoginUser = zod.infer<typeof LoginSchema>
 
 // Register User
 export const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userData= req.body;
+        
+        const userData: RegisterUser = req.body;
         
         const registrationResult = await registerUser(userData);
 
@@ -20,9 +26,8 @@ export const registerUserController = async (req: Request, res: Response, next: 
 
 // Log in User
 export const loginUserController = async (req: Request, res: Response, next: NextFunction) => {
-    const userData = req.body;
-
     try {
+        const userData: LoginUser = req.body;
         const loginResult = await loginUser(userData);
 
         res.status(200).json({
@@ -33,4 +38,20 @@ export const loginUserController = async (req: Request, res: Response, next: Nex
     } catch (error) {
         next(error)
     }    
+}
+
+// Rotate Access Token
+export const refreshTokenController = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const token: string  = req.cookies;
+
+        const newTokens = await refreshToken(token);
+
+        res.status(200).json({
+            success: true,
+            data: newTokens
+        })
+    } catch (error) {
+        next(error)
+    }
 }
